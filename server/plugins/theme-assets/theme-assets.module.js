@@ -3,7 +3,7 @@ const CssAssembler = require('../../../lib/css-assembler');
 const Utils = require('../../lib/utils');
 const Hoek = require('hoek');
 const Path = require('path');
-const StencilStyles = require('@bigcommerce/stencil-styles');
+const StencilStyles = require('big-styles');
 const internals = {
     options: {},
 };
@@ -83,7 +83,8 @@ internals.cssHandler = function (request, reply) {
             },
         };
 
-        internals.stencilStyles.compileCss('scss', params, (err, css) => {
+        let compiler = new StencilStyles();
+        compiler.compileCss('scss', params, (err, css) => {
             if (err) {
                 console.error(err);
                 return reply(Boom.badData(err));
